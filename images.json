@@ -2,13 +2,10 @@
    {
       "source":"kindest/node:v1.34.0",
       "target":"ccr.ccs.tencentyun.com/devopsvip/node:v1.34.0"
-   }
+   },
+  {
+    "source": "nginx:1.25",
+    "target": "ccr.ccs.tencentyun.com/devopsvip/nginx:1.29"
+  }
 ]
-
-
-
-
-
-
-
 
