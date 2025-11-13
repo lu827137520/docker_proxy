@@ -4,7 +4,7 @@
 
 name: Docker image sync to tencent
 env:
-  REGISTRY_URL: "ccr.ccs.tencentyun.com/devopsvip"
+  REGISTRY_URL: "ccr.ccs.tencentyun.com/xiaoningmeng"
 on:
   push:
     paths:
