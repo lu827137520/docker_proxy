@@ -1,25 +1,25 @@
-# This is a basic workflow to help you get started with Actions
-#VERSION 2
-#renew
+name: Docker image sync to Tencent
 
-name: Docker image sync to tencent
-env:
-  REGISTRY_URL: "ccr.ccs.tencentyun.com/xiaoningmeng"
 on:
   push:
     paths:
       - 'images.json'
 
+env:
+  REGISTRY_URL: "ccr.ccs.tencentyun.com/xiaoningmeng"
+
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+  sync:
+    runs-on: ubuntu-22.04  # 推荐使用最新 LTS
     steps:
-    - uses: actions/checkout@v2
-    - name: Run Push Docker images
-      run: |
-        mkdir -p images/ 
-        python uploader.py ${{ secrets.TENCENTDOCKER_USER}} ${{ secrets.TENCENTDOCKER_PASSWD}} ${REGISTRY_URL}
-    - uses: actions/upload-artifact@v2
-      with: 
-        name: docker-image
-        path: images/*
+      - uses: actions/checkout@v4
+
+      - name: Sync Docker images
+        run: python uploader.py ${{ secrets.TENCENTDOCKER_USER }} ${{ secrets.TENCENTDOCKER_PASSWD }} ${{ env.REGISTRY_URL }}
+
+      # 如果后续需要上传日志或报告，可保留 artifact 步骤；否则可注释或删除
+      # - uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: sync-log
+      #     path: ...  # 如有生成文件才需要
